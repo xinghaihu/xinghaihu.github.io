@@ -18,7 +18,7 @@ All these three problems involving a key question: how to evalute an action. The
 But how, and what data and method can be used?
 
 ## Regression, IPS, doubly robust
-There are two principal ideas to handle the problem. 
+There are two principal ideas to handle the problem - regression and IPS.
 
 ### Regression
 The idea is to find a function that uses contexts and actions to predict reward. With these function, the optimal action given a context can be found, which is the one with highest reward. Similarly, other listed problems can be solved as well. 
