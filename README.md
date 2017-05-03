@@ -1,1 +1,1 @@
-# xinghaihu.github.io
+# Learning, building and reflecting in a scientific way
