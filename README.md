@@ -33,4 +33,9 @@ IPS is short for inverse propensity score. The idea is to reweight the data usin
 This estimator is unbiased, however prone to high variance, especially when dividing a small propensity score (probability to assignment). Similar to regression method, IPS will also suffer when there is unmodeled factors.
 
 ### Doubly robust
-Doubly robust [link](https://arxiv.org/pdf/1103.4601.pdf) is a statistical method that combines the previous two methods and can balance bias and variance. 
+[Doubly robust](https://arxiv.org/pdf/1103.4601.pdf) is a statistical method that combines the previous two methods and can balance bias and variance. It is claimed that, when either regression model or IPS performs well, doubly robust estimator also win. 
+
+This estimator uses regression model as a baseline, and use IPS to adjust the difference of every observation reward from the baseline reward.
+
+## Instrumental variable
+
