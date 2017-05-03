@@ -7,3 +7,6 @@ Except for summary, we also want machine to do inference, understand causality a
 In this essay, we will go through the question causal inference is going to answer, logics underlying the solution and finally the math.
 
 ## Causal questions
+We start from 3 causal questions:  
+* __Is a new medicine effective?__ A patient takes a new medicine and gets cured. Can we conclude the effectiveness of the pill? 
+* 
