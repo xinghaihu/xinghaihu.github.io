@@ -4,13 +4,13 @@ Supervised learning often comes to mind when talking about machine learning: Nai
 
 Except for summary, we also want machine to do inference, understand causality and make reasonable decisions. This is extremely valuable for business decision with abundant data available. It answers questions like, whether a market campaign is effective, whether a product optimization increases revenue, what if a different strategy is applied, etc.
 
-In this essay, we will go through the question causal inference is going to answer, logics underlying the solution and finally the math.
+In this essay, we will go through the question causal inference to answer, logics underlying the solution and finally the math.
 
 ## Causal questions
 We start from 4 causal problems :  
 * __Is a new medicine effective?__ A patient takes a new medicine and gets cured. Can we conclude the effectiveness of the pill? 
 * __Is a different strategy better?__ Can we apply a different trading strategy based on historical data and prove it improves earnings?
-* __What other news to recommend?__ News website recommends articles similar to what customers have read. For example, Trump supporters are recommended with Trump campaign news and anti-Hillary news. Are these customers only interested in these news? What if Hillary compaign news are recommended?
+* __What other news to recommend?__ News website recommends articles similar to what customers have read. For example, Trump supporters are recommended with Trump campaign or anti-Clinton articles. Are these customers only interested in these news? What if articles supporting Clinton are recommended?
 * __What bandit policy should take?__ There could be Simpson's paradox in bandit. For example, in non-contextual bandit, performance of Arm A is better than Arm B on Friday, so that more allocation is assigned to Arm A on Saturday. Since rewards are averagely higher on weekends, the reward uplift of Arm A compared with Arm B is even higher, making the arm selection converge extremely fast.
 
 All these three problems involving a key question: how to evalute an action. The answer to the first question is clearly NO, as comparison with no-medicine situation is needed, and so do all questions related to action/policy/strategy evaluation - reward given action is not enough and only comparison with alternatives indicate effectiveness. 
@@ -40,12 +40,15 @@ Usually, a separate model is needed to compute the probability of assignment in 
 This estimator uses regression model as a baseline, and use IPS to adjust the difference of every observation reward from the baseline reward.
 
 ## Instrumental variable
-As we discussed above, confounding factors could be a killer to causal inference, as it is correlated with action. As a result, instrumental variable (IV) is introduced - a variable that is correlated with action but uncorrelated with all contexts. 
+As we discussed above, confounding factors could be a killer to causal inference, as it is correlated with action. To alleviate the problem, instrumental variable (IV) is introduced - a variable that is correlated with action but uncorrelated with all contexts. 
 
-Here is an example. In a study about relation between opium treatment length and post-cure opium addition rate, patient condition can be a confounder - ex. spritually weaker patient are prone to worse health condition and also more chance to get drug addicted. An IV in this setting is the distance of the patients' residence to the hospital, as patience living closer to the hospital has an averagely longer time to be treated, whereas they are independent from patients' conditions. Then it is a fair comparison between people living closer and farther from hospitals.
+Here is an example. In a study about relation between opium treatment duration and post-cure opium addition rate, patients' personal condition can be a confounder - ex. spritually weaker patient are prone to worse health condition and also becoming more likely to get drug addicted. An IV in this case is the distance between the patients' residence and the hospital, as patience living closer to the hospital has an averagely longer duration to be treated, whereas the distance is independent from patients' conditions. Hence it is a fair comparison between people living closer and farther from hospitals.
 
-In observational study, IIT group or control group is usually used as IV, as the group split is random and independent from any conditions. 
+In observational study, samples are usually randomly split into intent-to-treat (IIT) group and control group. The group index can be used as IV, as it is independent from any context variables. 
 
-IV is usually used in the reward model or assignment model in the previously mentioned two methods. 
+To use IV in causal modeling, it is usually used as a feature in the reward model or assignment model mentioned in previous section. 
 
-If no IV is available, a method called _two stage least squres_ (2SLS) can be used. In this method, treatment is projected to all contexts, and use the residue to do the second stage regression. The idea is that, the residue is correlated to action rather than context, so it can be viewed as IV. 
+If no IV is available, a method called _two stage least squares_ (2SLS) can be used. In this method, treatment is projected to the subspace spanned by all context variables, and the residue is used to for the second stage regression. The idea is that, the residue is correlated to action but not context, and thus can be viewed as IV. 
+
+## Summary
+Causal inference answers the question: will the result differ when an action change? It is the key to policy evaluation, domain adaptation and counterfactual analysis. The main method includes regression adaptation and IPS adaptation, and doubly robust combines the two method and balance the bias and variation. Confounder can be a headache in causal inference, and IV/2SLS can help alleviate the problem.
