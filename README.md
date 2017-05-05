@@ -1,6 +1,6 @@
 # Causal inference
 
-```python
+```R
 def method():
 print "just a test"
 ```
